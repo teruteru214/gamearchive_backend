@@ -4,7 +4,7 @@ FROM ruby:3.1.2
 # nodeやyarn等の必要なライブラリをインストール
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-ENV APP_ROOT /var/www/api
+ENV APP_ROOT /var/www
 
 # Railsアプリを配置するフォルダをコンテナ内に作成
 RUN mkdir -p $APP_ROOT

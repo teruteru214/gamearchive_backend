@@ -82,6 +82,8 @@ GEM
     date (3.3.3)
     debug_inspector (1.1.0)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.4.2)
+      rails
     enum_help (0.0.19)
       activesupport (>= 3.0.0)
     erubi (1.12.0)
@@ -276,6 +278,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap (>= 1.4.4)
   bullet
+  dockerfile-rails (>= 1.4)
   enum_help
   factory_bot_rails
   listen (~> 3.3)

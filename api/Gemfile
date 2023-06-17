@@ -51,3 +51,5 @@ gem 'rails-i18n'
 
 # seedファイル
 gem 'seed-fu'
+
+gem "dockerfile-rails", ">= 1.4", :group => :development

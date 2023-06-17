@@ -6,6 +6,10 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
+  # It only allows requests from domains provided in this list, blocking others.
+  # Here, we add our deployed application host 'gamearchive-backend.fly.dev' to the list of permitted hosts.
+  config.hosts << "gamearchive-backend.fly.dev"
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -110,4 +114,5 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  # Allow requests from the deployed host. Rails 6 introduced this middleware that prevents against DNS rebinding attacks.
 end

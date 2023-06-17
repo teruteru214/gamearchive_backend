@@ -1,0 +1,30 @@
+# fly.toml app configuration file generated for gamearchive-backend on 2023-06-17T15:38:42+09:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "gamearchive-backend"
+primary_region = "nrt"
+
+[build]
+  dockerfile = "Dockerfile.prod"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 3000
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = "30s"
+    timeout = "20s"
+    restart_limit = 0

@@ -1,0 +1,5 @@
+app = "gamearchive-backend"
+
+[build]
+  dockerfile = "docker/ruby/Dockerfile"
+  context = "."

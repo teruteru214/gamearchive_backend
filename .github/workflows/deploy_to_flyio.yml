@@ -21,7 +21,7 @@ jobs:
           ruby-version: "3.1.2"
 
       - name: Docker build
-        working-directory: ./api
+        working-directory: ./gamearchive_backend/api
         run: |
           docker build -t $APP_NAME -f Dockerfile.prod .
 

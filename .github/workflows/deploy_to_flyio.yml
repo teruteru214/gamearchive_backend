@@ -1,0 +1,47 @@
+name: Fly Deploy
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  APP_NAME: ${{ secrets.FLY_APP_NAME }}
+
+jobs:
+  deploy:
+    name: Deploy to Fly
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1.2"
+
+      - name: Docker build
+        working-directory: ./api
+        run: |
+          docker build -t $APP_NAME -f Dockerfile.prod .
+
+      - name: Fly Login
+        run: flyctl auth login --token $FLY_API_TOKEN
+
+      # The following step is only needed for the first-time deployment
+      # - name: Create Fly.io App
+      #   run: flyctl apps create $APP_NAME
+
+      - name: Deploy to Fly
+        run: flyctl deploy --app $APP_NAME
+
+      - name: Slack Notification
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+          author_name: "deploy"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

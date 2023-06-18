@@ -31,7 +31,7 @@ jobs:
           echo "/home/runner/.fly/bin" >> $GITHUB_PATH
 
       - name: Fly Login
-        run: flyctl auth login --token $FLY_API_TOKEN
+        run: flyctl auth login --access-token $FLY_API_TOKEN
 
       # The following step is only needed for the first-time deployment
       # - name: Create Fly.io App

@@ -25,6 +25,11 @@ jobs:
         run: |
           docker build -t $APP_NAME -f Dockerfile.prod .
 
+      - name: Install Flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          echo "/home/runner/.fly/bin" >> $GITHUB_PATH
+
       - name: Fly Login
         run: flyctl auth login --token $FLY_API_TOKEN
 

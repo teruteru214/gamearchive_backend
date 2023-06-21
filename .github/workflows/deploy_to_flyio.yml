@@ -15,6 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -36,6 +37,9 @@ jobs:
       - name: Deploy to Fly
         working-directory: ./api
         run: flyctl deploy --app $APP_NAME
+
+      - name: Database Migration
+        run: flyctl run --app $APP_NAME 'rails db:migrate'
 
       - name: Slack Notification
         uses: 8398a7/action-slack@v3

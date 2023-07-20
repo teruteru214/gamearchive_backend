@@ -18,8 +18,8 @@ services:
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     image: rails:dev
     volumes:
-      - ${APP_CODE_PATH_HOST}:/var/www/api
-      - ${APP_CODE_PATH_HOST}/vendor/bundle:/var/www/api/vendor/bundle
+      - ${APP_CODE_PATH_HOST}:/var/www
+      - ${APP_CODE_PATH_HOST}/vendor/bundle:/var/www/vendor/bundle
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: development

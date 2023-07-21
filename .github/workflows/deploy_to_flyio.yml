@@ -5,9 +5,8 @@ on:
       - main
 
 env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  APP_NAME: ${{ secrets.APP_NAME }}
-  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  FLY_API_TOKEN: $
+  APP_NAME: $
 
 jobs:
   deploy:
@@ -16,6 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -42,15 +46,15 @@ jobs:
       - name: Database Migration
         working-directory: ./api
         run: |
-          docker run -e DATABASE_PASSWORD=$DATABASE_PASSWORD $APP_NAME bundle exec rails db:migrate
+          docker run --env-file .env $APP_NAME bundle exec rails db:migrate
 
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         if: always()
         with:
-          status: ${{ job.status }}
+          status: $
           fields: repo,message,commit,author,action,eventName,ref,workflow
           author_name: "deploy"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_TOKEN: $
+          SLACK_WEBHOOK_URL: $

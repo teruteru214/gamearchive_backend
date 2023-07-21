@@ -5,8 +5,8 @@ on:
       - main
 
 env:
-  FLY_API_TOKEN: $
-  APP_NAME: $
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  APP_NAME: ${{ secrets.FLY_APP_NAME }}
 
 jobs:
   deploy:
@@ -38,19 +38,13 @@ jobs:
         working-directory: ./api
         run: flyctl deploy --app $APP_NAME
 
-      - name: Database Migration
-        working-directory: ./api
-        run: |
-          docker run -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} $APP_NAME bundle exec rails db:migrate
-
-
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         if: always()
         with:
-          status: $
+          status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow
           author_name: "deploy"
         env:
-          GITHUB_TOKEN: $
-          SLACK_WEBHOOK_URL: $
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

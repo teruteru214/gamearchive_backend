@@ -38,6 +38,11 @@ jobs:
         working-directory: ./api
         run: flyctl deploy --app $APP_NAME
 
+      - name: Database Migration
+        working-directory: ./api
+        run: |
+          docker run $APP_NAME bundle exec rails db:migrate
+
       - name: Slack Notification
         uses: 8398a7/action-slack@v3
         if: always()

@@ -16,11 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create .env file
-        run: |
-          touch .env
-          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -46,7 +41,8 @@ jobs:
       - name: Database Migration
         working-directory: ./api
         run: |
-          docker run --env-file .env $APP_NAME bundle exec rails db:migrate
+          docker run -e DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} $APP_NAME bundle exec rails db:migrate
+
 
       - name: Slack Notification
         uses: 8398a7/action-slack@v3

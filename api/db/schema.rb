@@ -18,13 +18,12 @@ ActiveRecord::Schema.define(version: 2023_07_20_093447) do
   create_table "users", force: :cascade do |t|
     t.string "nickname", limit: 40, null: false
     t.string "avatar_key"
-    t.string "uid"
+    t.string "uid", null: false
     t.string "introduction", limit: 160
     t.string "twitter_name"
     t.string "visibility", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["avatar_key"], name: "index_users_on_avatar_key", unique: true
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 

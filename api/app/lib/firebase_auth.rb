@@ -181,8 +181,8 @@ module FirebaseAuth
       errors << "Invalid ID token. #{e.message}"
     end
 
-    sub = decode_token[0]["sub"]
-    alg = decode_token[1]["alg"]
+    sub = decoded_token[0]["sub"]
+    alg = decoded_token[1]["alg"]
 
     # subject ("sub") と algorithm ("alg")を追加検証する（JWT.decodeで検証できないため）
     errors << 'Firebase ID token has no "sub" (subject) claim.' unless sub.is_a?(String)

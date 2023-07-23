@@ -14,9 +14,6 @@ class Api::V1::BaseController < ApplicationController
       else
         user_result = User.find_or_create_user(result)
         @_current_user = user_result[:user]
-        if user_result[:is_new]
-          @_current_user.update(visibility: "private")
-        end
       end
     end
   end

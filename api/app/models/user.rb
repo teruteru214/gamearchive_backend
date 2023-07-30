@@ -10,7 +10,7 @@ class User < ApplicationRecord
     if user
       return { user: user, is_new: false }
     else
-      new_user = User.create!(uid: user_info[:uid], nickname: "User_#{user_info[:uid]}", visibility: "private")
+      new_user = User.create!(uid: user_info[:uid], nickname: user_info[:nickname], visibility: "private")
       return { user: new_user, is_new: true }
     end
   end

@@ -21,6 +21,10 @@ gem 'aws-sdk'
 # json_serializer
 gem 'jsonapi-serializer'
 
+# IGDBAPI
+gem 'faraday'
+gem 'faraday_middleware'
+
 gem 'sassc'
 
 group :development, :test do

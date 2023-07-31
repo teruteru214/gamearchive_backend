@@ -6,11 +6,13 @@ class Api::V1::SearchController < ApplicationController
       f.adapter Faraday.default_adapter
     end
 
+    search_terms = params[:search].split.map { |term| ERB::Util.url_encode(term) }.join(" ")
+
     response = conn.post do |req|
       req.headers['Client-ID'] = ENV['IGDB_CLIENT_ID']
       req.headers['Authorization'] = ENV['IGDB_AUTHORIZATION']
       req.headers['Accept-Language'] = 'ja'
-      req.body = "fields id, name, cover.url, genres.name, platforms.name, url, rating; limit 150; search \"#{ERB::Util.url_encode(params[:search])}\";"
+      req.body = "fields id, name, cover.url, genres.name, platforms.name, url, rating; limit 150; search \"#{search_terms}\";"
     end
 
     if response.success?

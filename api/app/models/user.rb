@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :games, dependent: :destroy
+  has_many :game_statuses, dependent: :destroy
+
   validates :nickname,    presence: true, length: { maximum: 40 }
   validates :uid,         presence:true, uniqueness: true
   validates :introduction, length: { maximum: 160 }

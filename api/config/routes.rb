@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       resource :image, only: %w[create show]
       resource :profile, only: %w[show update]
       post '/search', to: 'search#search'
-      resources :games, only: [:create]
-      resources :game_statuses, only: [:create]
+      resources :games, only: %w[index create]
+      resources :game_statuses, only: %w[create]
     end
   end
 end

@@ -1,4 +1,14 @@
 class Api::V1::GamesController < Api::V1::BaseController
+  def index
+    if params[:status]
+      @games = current_user.games.includes(:game_status, :game_genres, :game_platforms).where(game_status: {status: params[:status]})
+    else
+      @games = current_user.games.includes(:game_status, :game_genres, :game_platforms)
+    end
+
+    render json: serialize_games(@games)
+  end
+
   def create
     game = current_user.games.new(game_params)
 
@@ -34,8 +44,7 @@ class Api::V1::GamesController < Api::V1::BaseController
   end
 
   def create_game_status(game)
-    game_status = game.build_game_status(game_status_params)
-    game_status.user = current_user
+    game_status = game.build_game_status(game_status_params.merge(user: current_user))
     game_status.save!
   end
 
@@ -51,5 +60,9 @@ class Api::V1::GamesController < Api::V1::BaseController
       platform = Platform.find_or_create_by!(name: platform_name)
       game.game_platforms.create!(platform: platform)
     end
+  end
+
+  def serialize_games(games)
+    GameCardSerializer.new(games).serializable_hash.to_json
   end
 end

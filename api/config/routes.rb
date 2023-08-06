@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resource :profile, only: %w[show update]
       post '/search', to: 'search#search'
       resources :games, only: %w[index create]
-      resources :game_statuses, only: %w[create]
+      resources :game_statuses, only: %w[update]
     end
   end
 end

@@ -63,6 +63,6 @@ class Api::V1::GamesController < Api::V1::BaseController
   end
 
   def serialize_games(games)
-    GameCardSerializer.new(games).serializable_hash.to_json
+    GameSerializer.new(games).serializable_hash.to_json
   end
 end

@@ -48,5 +48,8 @@ module Api
       g.skip_routes true
       g.helper false
     end
+
+    # 分離したロジックを読み込む
+    config.autoload_paths += %W({config.root}/app/services)
   end
 end

@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   belongs_to :user
   has_one :game_status, dependent: :destroy
+  has_one :favorite, dependent: :destroy
   has_many :game_genres, dependent: :destroy
   has_many :genres, through: :game_genres
   has_many :game_platforms, dependent: :destroy

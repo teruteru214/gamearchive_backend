@@ -9,6 +9,11 @@ class Api::V1::GamesController < Api::V1::BaseController
     render json: serialize_games(@games)
   end
 
+  def favorites
+    json_string = GameSerializer.new(current_user.favorited_games).serializable_hash.to_json
+    render json: json_string
+  end
+
   def create
   game = GameCreationService.new(
     current_user,

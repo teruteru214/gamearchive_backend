@@ -1,11 +1,6 @@
 class Api::V1::GamesController < Api::V1::BaseController
   def index
-    if params[:status]
-      @games = current_user.games.includes(:game_status, :game_genres, :game_platforms).where(game_status: {status: params[:status]})
-    else
-      @games = current_user.games.includes(:game_status, :game_genres, :game_platforms)
-    end
-
+    @games = current_user.games.includes(:game_status, :genres, :platforms)
     render json: serialize_games(@games)
   end
 

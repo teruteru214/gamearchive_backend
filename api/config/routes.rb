@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resource :image, only: %w[create show]
       resource :profile, only: %w[show update]
       post '/search', to: 'search#search'
-      resources :games, only: %w[index create] do
+      resources :games, only: %w[index create destroy] do
         collection do
           get 'favorites', to: 'games#favorites'
         end

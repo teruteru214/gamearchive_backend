@@ -8,5 +8,5 @@ class Game < ApplicationRecord
   has_many :platforms, through: :game_platforms
 
   validates :title, presence: true, uniqueness: { scope: :user_id, message: "You have already added this game" }
-  validates :url, presence: true, format: URI::regexp(%w[http https])
+  validates :url, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }
 end

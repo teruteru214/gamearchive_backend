@@ -16,12 +16,12 @@ class Api::V1::GamesController < Api::V1::BaseController
         game_status_params,
         genres_params,
         platforms_params
-      ).call
+    ).call
 
-      json_string = GameSerializer.new(game).serializable_hash.to_json
-      render json: json_string, status: :created
-    rescue ActiveRecord::RecordInvalid
-      render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
+    json_string = GameSerializer.new(game).serializable_hash.to_json
+    render json: json_string, status: :created
+  rescue ActiveRecord::RecordInvalid
+    render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
   end
 
   def destroy

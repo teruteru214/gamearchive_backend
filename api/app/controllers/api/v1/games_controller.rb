@@ -10,18 +10,27 @@ class Api::V1::GamesController < Api::V1::BaseController
   end
 
   def create
-  game = GameCreationService.new(
-    current_user,
-    game_params,
-    game_status_params,
-    genres_params,
-    platforms_params
-  ).call
+    game = GameCreationService.new(
+        current_user,
+        game_params,
+        game_status_params,
+        genres_params,
+        platforms_params
+      ).call
 
-    json_string = GameSerializer.new(game).serializable_hash.to_json
-    render json: json_string, status: :created
-  rescue ActiveRecord::RecordInvalid
-    render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
+      json_string = GameSerializer.new(game).serializable_hash.to_json
+      render json: json_string, status: :created
+    rescue ActiveRecord::RecordInvalid
+      render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  def destroy
+    @game = current_user.games.find(params[:id])
+    if @game.destroy
+      render json: {status: :ok, message: "successfully game deleted!"}
+    else
+      render json: {status: :unprocessable_entity, message: @game.errors.full_messages.join(", ")}
+    end
   end
 
   private

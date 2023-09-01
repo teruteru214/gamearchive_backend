@@ -1,4 +1,3 @@
-# app/services/game_search_service.rb
 class GameSearchService
   def initialize(search_terms)
     @search_terms = search_terms
@@ -22,7 +21,7 @@ class GameSearchService
 
     if response.success?
       raw_games = response.body
-      transform_to_game_objects(raw_games)
+      { games: transform_to_game_objects(raw_games) }
     else
       { error: 'Error retrieving games' }
     end

@@ -58,11 +58,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# 日本語化
-gem 'enum_help'
-gem 'rails-i18n'
-
-# seedファイル
-gem 'seed-fu'
-
 gem "dockerfile-rails", ">= 1.4", :group => :development

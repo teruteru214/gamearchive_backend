@@ -1497,8 +1497,6 @@ GEM
     diff-lcs (1.5.0)
     dockerfile-rails (1.4.2)
       rails
-    enum_help (0.0.19)
-      activesupport (>= 3.0.0)
     erubi (1.12.0)
     erubis (2.7.0)
     factory_bot (6.2.1)
@@ -1614,9 +1612,6 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
-    rails-i18n (7.0.7)
-      i18n (>= 0.7, < 2)
-      railties (>= 6.0.0, < 8)
     rails_best_practices (1.23.2)
       activesupport
       code_analyzer (~> 0.5.5)
@@ -1690,9 +1685,6 @@ GEM
     ruby2_keywords (0.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
-    seed-fu (2.3.9)
-      activerecord (>= 3.1)
-      activesupport (>= 3.1)
     sexp_processor (4.17.0)
     spring (4.1.1)
     sprockets (4.2.0)
@@ -1724,7 +1716,6 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bullet
   dockerfile-rails (>= 1.4)
-  enum_help
   factory_bot_rails
   faraday
   faraday_middleware
@@ -1737,7 +1728,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.7)
-  rails-i18n
   rails_best_practices
   rspec-rails
   rubocop
@@ -1746,7 +1736,6 @@ DEPENDENCIES
   rubocop-rspec
   rubocop-rubycw
   sassc
-  seed-fu
   spring
   tzinfo-data
 

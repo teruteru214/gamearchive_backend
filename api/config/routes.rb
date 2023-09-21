@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
       resources :game_statuses, only: %w[update]
       resources :favorites, only: %w[create destroy]
+      resources :line_settings, only: %w[create show]
     end
   end
 end

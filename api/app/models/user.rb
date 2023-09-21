@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :game_statuses, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorited_games, through: :favorites, source: :game
+  has_one :line_settings, dependent: :destroy
 
   validates :nickname,    presence: true, length: { maximum: 40 }
   validates :uid,         presence:true, uniqueness: true

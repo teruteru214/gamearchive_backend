@@ -1,13 +1,14 @@
-class LineSettingsController < Api::V1::BaseController
+class Api::V1::LineSettingsController < Api::V1::BaseController
   def create
     unless current_user
+
       render json: { error: 'User not authenticated' }, status: :unauthorized
       return
     end
 
     channel_id = ENV["LIFF_CHANNEL_ID"]
-    get_liff_user_service = GetLiffUserService.new(params[:lineIdToken], channel_id)
-    result = get_liff_user_service.call
+    get_liff_user_profile_service = GetLiffUserProfileService.new(params[:lineAccessToken], channel_id)
+    result = get_liff_user_profile_service.call
 
     unless result[:status] == :ok
       render json: { error: result[:error] }, status: result[:status]

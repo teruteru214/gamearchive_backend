@@ -23,7 +23,14 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
 
 
   def show
-    line_setting = current_user.line_setting
+    user = User.find_by(uid: params[:uid])
+
+    unless user
+      render json: { error: 'User not found' }, status: :not_found
+      return
+    end
+
+    line_setting = user.line_setting
 
     if line_setting
       render json: LineSettingSerializer.new(line_setting).serializable_hash.to_json, status: :ok
@@ -35,6 +42,6 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
   private
 
   def line_setting_params
-    params.require(:line_setting).permit(:line_user_id, :line_notification, :stacked_notification_interval, :favorite_notification_interval)
+    params.require(:line_setting).permit(:line_notification, :stacked_notification_interval, :favorite_notification_interval)
   end
 end

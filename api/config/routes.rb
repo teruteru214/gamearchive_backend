@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       end
       resources :game_statuses, only: %w[update]
       resources :favorites, only: %w[create destroy]
-      resources :line_settings, only: %w[create show]
+      resource :line_settings, only: %w[create update]
+      get '/line_setting', to: 'line_settings#show'
     end
   end
 end

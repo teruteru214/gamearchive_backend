@@ -39,6 +39,21 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
     end
   end
 
+  def update
+    line_setting = LineSetting.find(params[:id])
+
+    unless line_setting && line_setting.user == current_user
+      render json: { error: 'Not authorized' }, status: :forbidden
+      return
+    end
+
+    if line_setting.update(line_setting_params)
+      render json: LineSettingSerializer.new(line_setting).serializable_hash.to_json, status: :ok
+    else
+      render json: { error: line_setting.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def line_setting_params

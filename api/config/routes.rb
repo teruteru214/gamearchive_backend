@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :favorites, only: %w[create destroy]
       resource :line_settings, only: %w[create update]
       get '/line_setting', to: 'line_settings#show'
+      post '/line/callback', to: 'line_messages#callback'
     end
   end
 end

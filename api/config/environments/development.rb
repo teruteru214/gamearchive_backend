@@ -73,4 +73,10 @@ Rails.application.configure do
   # It only allows requests from domains provided in this list, blocking others.
   # Here, we add our deployed application host 'gamearchive-backend.fly.dev' to the list of permitted hosts.
   config.hosts << "gamearchive-backend.fly.dev"
+
+  config.hosts.clear
+
+  Rails.autoloaders.each do |autoloader|
+    autoloader.logger = method(:puts)
+  end
 end

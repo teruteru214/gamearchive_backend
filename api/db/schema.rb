@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_18_084028) do
+ActiveRecord::Schema.define(version: 2023_10_02_093952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 2023_09_18_084028) do
     t.string "line_user_id", null: false
     t.boolean "line_notification", default: false
     t.integer "stacked_notification_interval", default: 30
-    t.integer "favorite_notification_interval", default: 30
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["line_user_id"], name: "index_line_settings_on_line_user_id", unique: true

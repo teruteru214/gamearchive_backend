@@ -57,6 +57,6 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
   private
 
   def line_setting_params
-    params.require(:line_setting).permit(:line_notification, :stacked_notification_interval, :favorite_notification_interval)
+    params.require(:line_setting).permit(:line_notification, :stacked_notification_interval)
   end
 end

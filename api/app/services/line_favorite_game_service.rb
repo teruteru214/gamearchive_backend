@@ -6,75 +6,93 @@ class LineFavoriteGameService
 
   def generate_flex_message
     {
-      type: "bubble",
-      header: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: "#{user_name}さんのお気に入りのゲーム",
-            weight: "bold",
-            size: "xl",
-            wrap: true
-          }
-        ]
-      },
-      hero: {
-        type: "image",
-        url: @game.cover,
-        size: "full",
-        aspectRatio: "20:13",
-        aspectMode: "cover",
-        action: {
-          type: "uri",
-          uri: @game.url
+      "type": "bubble",
+      "hero": {
+        "type": "image",
+        "url": @game.cover || "https://images.igdb.com/igdb/image/upload/t_cover_big/nocover.png",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "fit",
+        "action": {
+          "type": "uri",
+          "uri": "#{@game.url}"
         }
       },
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
           {
-            type: "text",
-            text: @game.title,
-            weight: "bold",
-            size: "xl",
-            wrap: true
+            "type": "text",
+            "text": "#{@game.title}",
+            "weight": "bold",
+            "size": "xl",
+            "wrap": true
           },
           {
-            type: "text",
-            text: "Rating: #{@game.rating}",
-            wrap: true,
-            color: "#666666",
-            size: "md"
+            "type": "box",
+            "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Rating: #{@game.rating || 'None'}",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "md",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "#{user_name}さんより",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
-      footer: {
-        type: "box",
-        layout: "vertical",
-        spacing: "sm",
-        contents: [
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
           {
-            type: "button",
-            style: "link",
-            height: "sm",
-            action: {
-              type: "uri",
-              label: "詳細を見る",
-              uri: @game.url
+            "type": "button",
+            "style": "link",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "詳細を見る",
+              "uri": "#{@game.url}"
             }
           }
-        ],
-        flex: 0
+        ]
       }
     }
   end
 
+
   private
 
   def user_name
-    @user.nickname || @user.name
+    @user.nickname
   end
 end

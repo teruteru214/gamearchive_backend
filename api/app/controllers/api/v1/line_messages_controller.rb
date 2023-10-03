@@ -26,7 +26,7 @@ class Api::V1::LineMessagesController < Api::V1::BaseController
 
   def handle_text_message(event)
     if event.message["text"] == "他ユーザーのお気に入りゲームを教えて"
-      user = User.where(visibility: "public").order("RANDOM()").first
+      user = User.joins(:favorites).where(visibility: "public").distinct.order("RANDOM()").first
       game = user.favorited_games.order("RANDOM()").first if user
 
       if user && game

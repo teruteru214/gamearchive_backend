@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       resources :game_statuses, only: %w[update]
       resources :favorites, only: %w[create destroy]
-      resource :line_settings, only: %w[create update]
+      resources :line_settings, only: %w[create update]
       get '/line_setting', to: 'line_settings#show'
       post '/line/callback', to: 'line_messages#callback'
     end

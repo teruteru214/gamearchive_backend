@@ -15,7 +15,7 @@ services:
     build:
       context: ../api
       dockerfile: ../docker/ruby/Dockerfile
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: /start.sh
     image: rails:dev
     volumes:
       - ${APP_CODE_PATH_HOST}:/var/www

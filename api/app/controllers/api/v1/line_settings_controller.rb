@@ -21,7 +21,6 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
     render json: LineSettingSerializer.new(line_setting).serializable_hash.to_json, status: :created
   end
 
-
   def show
     user = User.find_by(uid: params[:uid])
 

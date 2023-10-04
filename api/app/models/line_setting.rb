@@ -4,6 +4,10 @@ class LineSetting < ApplicationRecord
   validates :line_user_id, presence: true, uniqueness: true
   validates :stacked_notification_interval, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 60 }
 
+  before_create :set_initial_notification_date
+  before_update :reset_notification_date_if_interval_changed, if: :stacked_notification_interval_changed?
+
+
   def notify_stacked_game
     game = random_stacked_game
     if game
@@ -24,12 +28,19 @@ class LineSetting < ApplicationRecord
   end
 
   def self.notify_users
-    LineSetting.where(line_notification: true).find_each do |line_setting|
-      last_notification_date = line_setting.updated_at.to_date
-      next_notification_date = last_notification_date + line_setting.stacked_notification_interval.days
-      if next_notification_date == Date.today
-        line_setting.notify_stacked_game
-      end
+    LineSetting.where(line_notification: true).where(notification_date: Date.today).find_each do |line_setting|
+      line_setting.notify_stacked_game
+      line_setting.update!(notification_date: Date.today + line_setting.stacked_notification_interval.days)
     end
+  end
+
+  private
+
+  def set_initial_notification_date
+    self.notification_date = Date.today + stacked_notification_interval.days
+  end
+
+  def reset_notification_date_if_interval_changed
+    self.notification_date = Date.today + stacked_notification_interval.days
   end
 end

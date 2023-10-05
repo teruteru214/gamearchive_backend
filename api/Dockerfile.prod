@@ -32,4 +32,4 @@ RUN chmod +x /start.sh
 EXPOSE 3000
 
 # コマンドの実行
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["/start.sh"]

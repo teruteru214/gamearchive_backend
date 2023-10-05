@@ -2,7 +2,7 @@
 FROM ruby:3.1.2
 
 # 必要なライブラリのインストール
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs cron
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 # アプリケーションのディレクトリを作成
 ENV APP_ROOT /var/www
@@ -24,12 +24,8 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-# start.shの配置
-COPY ./start.sh /start.sh
-RUN chmod +x /start.sh
-
 # 開放するポートの指定
 EXPOSE 3000
 
 # コマンドの実行
-CMD ["/start.sh"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

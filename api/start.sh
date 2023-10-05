@@ -7,5 +7,8 @@ service cron start
 # (必要であれば、以下のコマンドを追加します)
 bundle exec whenever --update-crontab
 
+# 2度行えば更新できるため
+bundle exec whenever --update-crontab
+
 # Railsサーバーを起動
 bundle exec rails s -p 3000 -b '0.0.0.0'

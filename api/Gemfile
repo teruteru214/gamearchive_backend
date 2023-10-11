@@ -62,6 +62,3 @@ gem "dockerfile-rails", ">= 1.4", :group => :development
 
 # "LINE通知"
 gem "line-bot-api"
-
-# "スケジュール通知"
-gem 'whenever', require: false

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :line_settings, only: %w[create update]
       get '/line_setting', to: 'line_settings#show'
       post '/line/callback', to: 'line_messages#callback'
+      post '/line_setting/notification', to: 'line_settings#notification'
     end
   end
 end

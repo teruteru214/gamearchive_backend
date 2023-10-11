@@ -53,6 +53,11 @@ class Api::V1::LineSettingsController < Api::V1::BaseController
     end
   end
 
+  def notification
+    LineSetting.notify_users
+    render json: { message: "Notifications sent successfully." }, status: :ok
+  end
+
   private
 
   def line_setting_params
